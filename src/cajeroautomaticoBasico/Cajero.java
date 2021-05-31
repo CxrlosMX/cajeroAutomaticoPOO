@@ -26,6 +26,14 @@ public class Cajero {
         this.password = password;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     //Metodo para mostrar Menu
     public void mostrarMenu() {
         int op = 0;
@@ -51,7 +59,7 @@ public class Cajero {
                         break;
                     }
                     case 4: {
-
+                        cambiarPassword();
                         break;
                     }
                     case 5: {
@@ -100,38 +108,40 @@ public class Cajero {
 
                 cadena = JOptionPane.showInputDialog(null, "a)5000\nb)10 000"
                         + "\nc)20 000\nd)50 000\ne)1000 000\nf)Otra cantidad", "Menu", 3);
-                switch (cadena) {
-                    case "a": {
-                        verificarCantidad(5000);
-                        break;
-                    }
-                    case "b": {
-                        verificarCantidad(10000);
-                        break;
-                    }
-                    case "c": {
-                        verificarCantidad(20000);
-                        break;
-                    }
-                    case "d": {
-                        verificarCantidad(50000);
-                        break;
-                    }
-                    case "e": {
-                        verificarCantidad(1000000);
-                        break;
-                    }
-                    case "f": {
-                        cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Introduzca la cantidad que desea realizar", "Introduciendo cantidad", 3));
-                        verificarCantidad(cantidad);
-                        break;
-                    }
-                    default: {
-                        JOptionPane.showMessageDialog(null, "Introduce una opcion correcta", "Opcion incorrecta", 0);
-                        break;
+
+                if (cadena != null && !cadena.equals("")) {
+                    switch (cadena) {
+                        case "a": {
+                            verificarCantidad(5000);
+                            break;
+                        }
+                        case "b": {
+                            verificarCantidad(10000);
+                            break;
+                        }
+                        case "c": {
+                            verificarCantidad(20000);
+                            break;
+                        }
+                        case "d": {
+                            verificarCantidad(50000);
+                            break;
+                        }
+                        case "e": {
+                            verificarCantidad(1000000);
+                            break;
+                        }
+                        case "f": {
+                            cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Introduzca la cantidad que desea realizar", "Introduciendo cantidad", 3));
+                            verificarCantidad(cantidad);
+                            break;
+                        }
+                        default: {
+                            JOptionPane.showMessageDialog(null, "Introduce una opcion correcta", "Opcion incorrecta", 0);
+                            break;
+                        }
                     }
                 }
-
             } else {
                 JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "Contraseña Incorrecta", 0);
             }
@@ -140,6 +150,23 @@ public class Cajero {
             JOptionPane.showMessageDialog(null, "Cuenta sin saldo", "Saldo cero", 0);
         }
 
+    }
+
+    //Metodo para cambiar la contraseña de nuestro usuario
+    public void cambiarPassword() {
+        String a;
+        a = JOptionPane.showInputDialog(null, "Introduce la contraseña actual por favor", "Introduciendo contraseña", 3);
+        if (a != null && !a.equals("") && a.equals(this.password)) {
+            a = JOptionPane.showInputDialog(null, "Introduce la nueva contraseña", "Introduciendo la nueva contraseña", 3);
+            if (a != null && !a.equals("") && !a.equals(this.password) && a.length()>3) { //La ultima condicion es para que la contraseña tenga mas de 3 letras
+                this.setPassword(a);
+                JOptionPane.showMessageDialog(null, "Contraseña cambiada con exito", "Contraseña cambiada", 3);
+            } else {
+                JOptionPane.showMessageDialog(null, "Introduce una contraseña valida", "Error al cambiar la contraseña", 0);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Contraseña Incorrecta", "Contraseña incorrecta", 0);
+        }
     }
 
     //Metodo para verificar valores
