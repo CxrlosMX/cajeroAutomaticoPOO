@@ -60,14 +60,14 @@ public class Cliente {
         String n;
         for (int i = 0; i < arreglo.length; i++) {
             n = JOptionPane.showInputDialog(null, "Introduce el numero de cuenta " + (i + 1), "Introduciendo numero de cuenta", 3);
-            saldo = Integer.parseInt(JOptionPane.showInputDialog(null, "Introduce el saldo de la cuenta" , "Introduciendo saldo", 3));
+            saldo = Integer.parseInt(JOptionPane.showInputDialog(null, "Introduce el saldo de la cuenta", "Introduciendo saldo", 3));
             arreglo[i] = new Cuenta(n, saldo);
         }
     }
 
     //Metodo para ingresar saldo a la cuenta
     public void realizarDeposito(String n, int dinero) {
-        int s=0;
+        int s = 0;
         if (dinero > 0 && n != null) {
             boolean encontrado = false;
             for (int i = 0; i < arreglo.length && !encontrado; i++) {
@@ -92,13 +92,15 @@ public class Cliente {
         if (n != null) {
             boolean encontrado = false;
             for (int i = 0; i < arreglo.length && !encontrado; i++) {
-                if ((arreglo[i].getNumCuenta()).equals(n) && dinero > 0 && dinero < arreglo[i].getSaldo()) {
-                    int s = arreglo[i].getSaldo() - dinero;
-                    arreglo[i].setSaldo(s);
-                    encontrado = true;
-                } else {
-                    JOptionPane.showMessageDialog(null, "Introduce valores validos", "Valores no validos", 0);
-                    return;
+                if ((arreglo[i].getNumCuenta()).equals(n)) {
+                    if (dinero > 0 && dinero < arreglo[i].getSaldo()) {
+                        int s = arreglo[i].getSaldo() - dinero;
+                        arreglo[i].setSaldo(s);
+                        encontrado = true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Introduce valores validos", "Valores no validos", 0);
+                        return;
+                    }
                 }
             }
         } else {
@@ -126,13 +128,5 @@ public class Cliente {
         }
     }
 
-    //Metodo para buscar cuenta
-    public boolean encontrado(int n) {
-
-        if (n >= 0 && n <= arreglo.length - 1) {
-            return true;
-        }
-        return false;
-    }
-
+  
 }
